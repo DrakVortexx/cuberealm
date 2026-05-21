@@ -3,116 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <title>CubeRealm Launcher</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
     body {
         margin: 0;
-        font-family: Arial, sans-serif;
+        font-family: Arial;
         background: #0b0f1a;
         color: white;
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         height: 100vh;
     }
 
-    header {
-        padding: 12px;
+    .card {
+        width: 360px;
+        padding: 20px;
         background: #121a2b;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        text-align: center;
     }
 
-    .buttons {
-        display: flex;
-        gap: 10px;
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background: #1c2740;
+        color: white;
     }
 
     button {
-        padding: 10px 14px;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
         border: none;
         border-radius: 8px;
+        background: #2b6fff;
+        color: white;
         cursor: pointer;
         font-weight: bold;
-        color: white;
-        background: #2b6fff;
-        transition: 0.2s;
     }
 
     button:hover {
         background: #1f55c4;
     }
 
-    .container {
-        flex: 1;
-        display: flex;
+    .hidden {
+        display: none;
     }
 
-    iframe {
-        flex: 1;
-        border: none;
-        background: black;
-    }
-
-    .sidebar {
-        width: 260px;
-        background: #0f1525;
-        padding: 10px;
-        box-sizing: border-box;
-        border-left: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .linkBox {
-        padding: 10px;
-        background: rgba(255,255,255,0.05);
-        border-radius: 10px;
+    .title {
+        font-size: 18px;
         margin-bottom: 10px;
-        font-size: 13px;
     }
 </style>
 </head>
 
 <body>
 
-<header>
-    <div>🟦 CubeRealm Launcher</div>
+<!-- LOGIN SCREEN -->
+<div class="card" id="loginScreen">
+    <div class="title">🟦 CubeRealm Login</div>
 
-    <div class="buttons">
-        <button onclick="openGame()">Go to Main Game</button>
-        <button onclick="loadIframe()">Load Private Server</button>
-    </div>
-</header>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
 
-<div class="container">
+    <button onclick="login()">Login</button>
+</div>
 
-    <iframe id="frame" src="https://tinyurl.com/cuberealm"></iframe>
+<!-- MAIN MENU -->
+<div class="card hidden" id="mainMenu">
+    <div class="title">Welcome, <span id="userDisplay"></span></div>
 
-    <div class="sidebar">
-        <div class="linkBox">
-            <b>Private Server:</b><br>
-            tinyurl.com/cuberealm
-        </div>
+    <p style="opacity:0.8;">
+        Click below to enter the main server.
+    </p>
 
-        <div class="linkBox">
-            <b>Main Game:</b><br>
-            cuberealm.io
-        </div>
-
-        <p style="opacity:0.7;font-size:12px;">
-            If the iframe is blank, the site is blocking embedding. Use the button instead.
-        </p>
-    </div>
-
+    <button onclick="joinMain()">Join Main Server</button>
+    <button onclick="logout()" style="background:#444;margin-top:8px;">
+        Logout
+    </button>
 </div>
 
 <script>
-    function openGame() {
+    function login() {
+        const user = document.getElementById("username").value;
+
+        if (!user) {
+            alert("Enter a username!");
+            return;
+        }
+
+        document.getElementById("loginScreen").classList.add("hidden");
+        document.getElementById("mainMenu").classList.remove("hidden");
+
+        document.getElementById("userDisplay").innerText = user;
+    }
+
+    function joinMain() {
+        // opens real game
         window.location.href = "https://cuberealm.io";
     }
 
-    function loadIframe() {
-        document.getElementById("frame").src = "https://tinyurl.com/cuberealm";
+    function logout() {
+        document.getElementById("mainMenu").classList.add("hidden");
+        document.getElementById("loginScreen").classList.remove("hidden");
     }
 </script>
 
