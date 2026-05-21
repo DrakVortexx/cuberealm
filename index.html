@@ -1,118 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>CubeRealm Launcher</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial;
-        background: #0b0f1a;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
+body {
+    margin:0;
+    font-family: Arial;
+    background:#0b0f1a;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+}
 
-    .card {
-        width: 360px;
-        padding: 20px;
-        background: #121a2b;
-        border-radius: 12px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        text-align: center;
-    }
+.card {
+    width:400px;
+    background:#121a2b;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+}
 
-    input {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        background: #1c2740;
-        color: white;
-    }
-
-    button {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border: none;
-        border-radius: 8px;
-        background: #2b6fff;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    button:hover {
-        background: #1f55c4;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .title {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
+button {
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    background:#2b6fff;
+    color:white;
+    cursor:pointer;
+}
+button:hover { background:#1f55c4; }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN SCREEN -->
-<div class="card" id="loginScreen">
-    <div class="title">🟦 CubeRealm Login</div>
+<div class="card">
+    <h2>🟦 CubeRealm Launcher</h2>
 
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-
-    <button onclick="login()">Login</button>
-</div>
-
-<!-- MAIN MENU -->
-<div class="card hidden" id="mainMenu">
-    <div class="title">Welcome, <span id="userDisplay"></span></div>
-
-    <p style="opacity:0.8;">
-        Click below to enter the main server.
+    <p id="status">
+        Step 1: Log in to CubeRealm
     </p>
 
-    <button onclick="joinMain()">Join Main Server</button>
-    <button onclick="logout()" style="background:#444;margin-top:8px;">
-        Logout
+    <button onclick="openLogin()">Open Login Page</button>
+
+    <button onclick="confirmLogin()" style="background:#444;">
+        I’ve logged in
     </button>
 </div>
 
 <script>
-    function login() {
-        const user = document.getElementById("username").value;
+function openLogin() {
+    window.open("https://cuberealm.io/login", "_blank");
+    document.getElementById("status").innerText =
+        "Log in in the new tab, then come back here.";
+}
 
-        if (!user) {
-            alert("Enter a username!");
-            return;
-        }
+function confirmLogin() {
+    document.getElementById("status").innerText =
+        "Connecting to main server...";
 
-        document.getElementById("loginScreen").classList.add("hidden");
-        document.getElementById("mainMenu").classList.remove("hidden");
-
-        document.getElementById("userDisplay").innerText = user;
-    }
-
-    function joinMain() {
-        // opens real game
+    setTimeout(() => {
         window.location.href = "https://cuberealm.io";
-    }
-
-    function logout() {
-        document.getElementById("mainMenu").classList.add("hidden");
-        document.getElementById("loginScreen").classList.remove("hidden");
-    }
+    }, 1000);
+}
 </script>
 
 </body>
